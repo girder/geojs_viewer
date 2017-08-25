@@ -10,6 +10,10 @@ const GeoJsView = View.extend({
         this.$el.html(template());
         this.$('.g-geojs-map-overlay-topleft').text(this.model.name());
 
+        if (this._map) {
+            this._map.exit();
+        }
+
         this._map = geojs.map({
             node: this.$('.g-geojs-map-container'),
             center: {
@@ -30,7 +34,7 @@ const GeoJsView = View.extend({
     },
 
     destroy: function () {
-        // TODO zach: do I need to do anything to clean up the map?
+        this._map.exit();
         View.prototype.destroy.call(this);
     }
 });
